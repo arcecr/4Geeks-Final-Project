@@ -41,9 +41,9 @@ export const Login = () => {
 
 						<div className="wthree-text">
 							<label className="anim">
-								<div className="login_text">Already a user:</div>
-								<Link to="/">
-									<div className="login_link"> Login now</div>
+								<div className="login_text">Do not have an account?</div>
+								<Link to="/register">
+									<div className="login_link"> Sign Up</div>
 								</Link>
 							</label>
 							<div className="clear"> </div>

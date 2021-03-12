@@ -66,8 +66,8 @@ export const Register = () => {
 						</div>
 						<div className="wthree-text">
 							<label className="anim">
-								<div className="login_text">Already a user:</div>
-								<Link to="/">
+								<div className="login_text">Have an account?</div>
+								<Link to="/login">
 									<div className="login_link"> Login now</div>
 								</Link>
 							</label>
