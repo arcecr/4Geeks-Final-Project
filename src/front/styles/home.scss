@@ -1,0 +1,106 @@
+body {
+  background-color: rgb(36, 39, 49);
+  color: white;
+}
+
+.jumbotronBox {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  padding: 0;
+  margin: 0 0 2em 0;
+  background: url("https://images.unsplash.com/photo-1567391454009-0894f63e5550?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.jumboContent{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+.jumboTop {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: auto;
+  margin: 0 0 7% 7%;
+}
+.jumboBottom {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: auto;
+  margin: 2%;
+  
+}
+h1{
+  font-size: 7.8em;
+  text-align: center;
+  color: #fff;
+}
+h2 {
+  font-size: 5em;
+  text-align: center;
+  color: #fff;
+}
+.neon {
+  animation: glow 1s ease-in-out infinite alternate;
+}
+.bg-card {
+  background-color: #1f001a;
+  border-radius: 24px;
+}
+
+.card img {
+  border-radius: 24px;
+}
+.bshadow {
+  box-shadow: 0.3em 0.3em 1em blue;
+}
+.boxcarousel {
+  border-radius: 24px;
+}
+
+.cardBox{
+    margin: 1em 2em 1em 0;
+    width: 21rem;
+    background: #1f001a;
+    display: inline-block;
+    box-shadow: 0.3em 0.3em 1em blue;
+    border-radius: 50px;
+}
+.cardBox img{
+    height: 13rem;
+    border-radius: 50px 50px 0 0;
+}
+.cardsCont{
+  display: flex;
+  flex-wrap: wrap;
+  height: auto;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0073e6, 0 0 20px #0073e6, 0 0 25px #0073e6, 0 0 30px #0073e6, 0 0 35px #0073e6;
+  }
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #0073e6, 0 0 40px #0073e6, 0 0 50px #0073e6, 0 0 60px #0073e6, 0 0 70px #0073e6;
+  }
+}
+@keyframes glow2 {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #6bf800, 0 0 20px #6bf800, 0 0 25px #6bf800, 0 0 30px #6bf800, 0 0 35px #6bf800;
+  }
+  to {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #6bf800, 0 0 40px #6bf800, 0 0 50px #6bf800, 0 0 60px #6bf800, 0 0 70px #6bf800;
+  }
+}
