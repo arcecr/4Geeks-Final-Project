@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 
 export const About = () => {
 	const { store, actions } = useContext(Context);
-
 	return (
 		<>
 			<div className="bg">
