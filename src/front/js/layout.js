@@ -6,6 +6,7 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Register } from "./pages/register";
+import { About } from "./pages/about";
 import injectContext from "./store/appContext";
 import { Login } from "./pages/login";
 
@@ -38,6 +39,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/single/:theid">
 							<Single />
+						</Route>
+						<Route exact path="/about">
+							<About />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>
