@@ -32,24 +32,32 @@ export const Navbar = () => {
 						</Link>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link" href="#">
-							Link
-						</a>
+						<Link to="/login">
+							<a className="nav-link">
+								Login <span className="sr-only">(current)</span>
+							</a>
+						</Link>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link" href="#">
-							Link2
-						</a>
+						<Link to="/register">
+							<a className="nav-link">
+								SingUp <span className="sr-only">(current)</span>
+							</a>
+						</Link>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link" href="#">
-							Link3
-						</a>
+						<Link to="/about">
+							<a className="nav-link">
+								About <span className="sr-only">(current)</span>
+							</a>
+						</Link>
 					</li>
 					<li className="nav-item">
-						<a className="nav-link" href="#">
-							Link4
-						</a>
+						<Link to=" ">
+							<a className="nav-link">
+								SiteMap <span className="sr-only">(current)</span>
+							</a>
+						</Link>
 					</li>
 				</ul>
 				<form className="form-inline my-2 my-lg-0">
