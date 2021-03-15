@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 06cbe628e446
+Revision ID: 660c8f462c2e
 Revises: 
-Create Date: 2021-03-10 15:44:51.788454
+Create Date: 2021-03-15 17:02:31.625212
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '06cbe628e446'
+revision = '660c8f462c2e'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -21,11 +21,11 @@ def upgrade():
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=100), nullable=False),
-    sa.Column('password', sa.String(length=150), nullable=False),
     sa.Column('email', sa.String(length=100), nullable=False),
     sa.Column('name', sa.String(length=80), nullable=False),
-    sa.Column('gender', sa.Enum('Male', 'Female', name='gender'), nullable=True),
+    sa.Column('gender', sa.Enum('male', 'female', name='gender'), nullable=False),
     sa.Column('birthday', sa.Date(), nullable=False),
+    sa.Column('password', sa.String(length=150), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email'),
@@ -34,23 +34,23 @@ def upgrade():
     )
     op.create_table('follower',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_from_id', sa.Integer(), nullable=False),
-    sa.Column('user_to_id', sa.Integer(), nullable=False),
-    sa.CheckConstraint('user_from_id <> user_to_id'),
-    sa.ForeignKeyConstraint(['user_from_id'], ['user.id'], ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['user_to_id'], ['user.id'], ondelete='CASCADE'),
+    sa.Column('follower_id', sa.Integer(), nullable=False),
+    sa.Column('followed_id', sa.Integer(), nullable=False),
+    sa.CheckConstraint('follower_id <> followed_id'),
+    sa.ForeignKeyConstraint(['followed_id'], ['user.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['follower_id'], ['user.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('id'),
-    sa.UniqueConstraint('user_from_id', 'user_to_id')
+    sa.UniqueConstraint('follower_id', 'followed_id'),
+    sa.UniqueConstraint('id')
     )
     op.create_table('message',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('user_from_id', sa.Integer(), nullable=False),
-    sa.Column('user_to_id', sa.Integer(), nullable=False),
-    sa.Column('content', sa.String(length=250), nullable=False),
+    sa.Column('sender_user_id', sa.Integer(), nullable=False),
+    sa.Column('receiver_user_id', sa.Integer(), nullable=False),
+    sa.Column('content', sa.Text(), nullable=False),
     sa.Column('created_date', sa.DateTime(), nullable=False),
-    sa.ForeignKeyConstraint(['user_from_id'], ['user.id'], ondelete='CASCADE'),
-    sa.ForeignKeyConstraint(['user_to_id'], ['user.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['receiver_user_id'], ['user.id'], ondelete='CASCADE'),
+    sa.ForeignKeyConstraint(['sender_user_id'], ['user.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user_game',
