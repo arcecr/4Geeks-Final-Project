@@ -17,6 +17,10 @@ flask-cors = "*"
 gunicorn = "*"
 cloudinary = "*"
 flask-admin = "*"
+marshmallow = "*"
+flask-marshmallow = "*"
+marshmallow-sqlalchemy = "*"
+marshmallow-enum = "*"
 
 [requires]
 python_version = "3.8"
