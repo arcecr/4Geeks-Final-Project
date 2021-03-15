@@ -48,7 +48,7 @@ export const About = () => {
 							<a
 								href="https://www.micit.go.cr/"
 								className="btn btn-light px-5 rounded-pill shadow-sm border border-dark">
-								Learn More about MICITT
+								Learn more about MICITT
 							</a>
 						</div>
 						<div className="col-lg-5 px-5 mx-auto order-1 order-lg-2">
@@ -76,7 +76,7 @@ export const About = () => {
 							<a
 								href="https://www.cinde.org/es"
 								className="btn btn-light px-5 rounded-pill shadow-sm border border-dark">
-								Learn More about CINDE
+								Learn more about CINDE
 							</a>
 						</div>
 					</div>
@@ -88,7 +88,7 @@ export const About = () => {
 					<div className="row mb-4">
 						<div className="col-lg-5">
 							<h2 className="display-4 font-weight-light">Our team</h2>
-							<p className="font-italic text-white">This is the team thats made posible ©BeGames</p>
+							<p className="font-italic text-white">This is the team thats made posible ©BeGamer</p>
 						</div>
 					</div>
 				</div>
@@ -99,12 +99,12 @@ export const About = () => {
 					<div className="col-xl-3 col-sm-6 mb-5">
 						<div className="bg-white py-5 px-4 rounded-circle border border-dark">
 							<img
-								src="https://res.cloudinary.com/mhmd/image/upload/v1556834132/avatar-4_ozhrib.png"
+								src="https://avatars.githubusercontent.com/u/77644517?s=460&u=c09ccde5e118b448e216f7241fa95e7fca5435c0&v=4"
 								alt=""
 								width="100"
 								className="img-fluid rounded-circle border border-dark mb-3 img-thumbnail"
 							/>
-							<h5 className="mb-0 text-muted">Ana Amador</h5>
+							<h5 className="mb-0 text-muted">Ana Osegueda</h5>
 							<span className="small text-uppercase text-muted">CEO - Founder</span>
 							<ul className="social mb-0 list-inline mt-3">
 								<li className="list-inline-item">
@@ -177,7 +177,7 @@ export const About = () => {
 					</div>
 				</div>
 				<div className="colorlibcopy-agile">
-					<p>© 2021 BeGame. All rights reserved</p>
+					<p>© 2021 BeGamer. All rights reserved</p>
 				</div>
 			</div>
 		</>
