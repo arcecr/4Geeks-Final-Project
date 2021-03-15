@@ -53,7 +53,7 @@ export const About = () => {
 						</div>
 						<div className="col-lg-5 px-5 mx-auto order-1 order-lg-2">
 							<img
-								src="https://lh3.googleusercontent.com/proxy/IIz6731gePoonmU0c33vmQen-WBiEfUKEy1P4OlJ_VkvjJFUbXW41XH9ELQ1K-7pIsnbWxvBEDACy90Ggo0JQS3SO06S4n1BjIidrO-Av9787Uyh1A"
+								src="http://www.camtic.org/wp-content/uploads/2020/08/30-a%C3%B1os-micitt.png"
 								alt=""
 								className="img-fluid mb-4 mb-lg-0 rounded-circle border border-dark"
 							/>
