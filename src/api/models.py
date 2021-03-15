@@ -1,8 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 
 db = SQLAlchemy()
 
 import enum
+import datetime
 
 class Gender(enum.Enum):
     Male = "male"
@@ -12,13 +14,19 @@ class Gender(enum.Enum):
 class User(db.Model):
     id = db.Column(db.Integer, unique=True, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(150), nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
     name = db.Column(db.String(80), nullable=False)
-    gender = db.Column(db.Enum(Gender))
+    gender = db.Column(db.Enum(Gender, values_callable=lambda obj: [e.value for e in obj]), nullable=False)
     birthday = db.Column(db.Date, nullable=False)
-    is_active = db.Column(db.Boolean(), nullable=False)
-    
+    password = db.Column(db.String(150), nullable=False)
+    is_active = db.Column(db.Boolean(), default=True, nullable=False)
+
+    def gen_hash_password(self):
+        self.password = generate_password_hash(self.password, "sha256")
+
+    def verify_password(self, password):
+        return check_password_hash(self.password, password)
+
     def __repr__(self):
         return '<User name=%r>' % self.username
 
@@ -39,29 +47,29 @@ class UserGame(db.Model):
 
 class Follower(db.Model):
     __table_args__ = (
-        db.UniqueConstraint('user_from_id', 'user_to_id'),
-        db.CheckConstraint('user_from_id <> user_to_id')
+        db.UniqueConstraint('follower_id', 'followed_id'),
+        db.CheckConstraint('follower_id <> followed_id')
     )
     id = db.Column(db.Integer, unique=True, primary_key=True)
-    user_from_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
-    user_to_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
-    
-    user_from = db.relationship("User", foreign_keys=user_from_id, backref="following")
-    user_to = db.relationship("User", foreign_keys=user_to_id, backref="followers")
+    follower_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
+    followed_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
+
+    follower = db.relationship("User", foreign_keys=follower_id, backref="following")
+    followed = db.relationship("User", foreign_keys=followed_id, backref="followers")
 
     def __repr__(self):
-        return '<Follow from=%r to=%r>' % (self.user_from.username, self.user_to.username)
+        return '<Follow follower=%r followed=%r>' % (self.follower.username, self.followed.username)
 
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_from_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
-    user_to_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
-    content = db.Column(db.String(250), nullable=False)
-    created_date = db.Column(db.DateTime, nullable=False)
+    sender_user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
+    receiver_user_id = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE"), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    created_date = db.Column(db.DateTime, default=datetime.datetime.now, nullable=False)
 
-    user_from = db.relationship("User", foreign_keys=user_from_id)
-    user_to = db.relationship("User", foreign_keys=user_to_id)
+    sender_user = db.relationship("User", foreign_keys=sender_user_id)
+    receiver_user = db.relationship("User", foreign_keys=receiver_user_id)
 
     def __repr__(self):
-        return '<Message from=%r to=%r>' % (self.user_from.username, self.user_to.username)
+        return '<Message sender=%r receiver=%r>' % (self.sender_user.username, self.receiver_user.username)
