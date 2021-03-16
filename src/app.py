@@ -4,10 +4,10 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 import os
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_migrate import Migrate
-from flask_swagger import swagger
+from flask_jwt_extended import JWTManager
 from flask_cors import CORS
 from api.utils import APIException, generate_sitemap
-from api.models import db
+from api.models import db, User
 from api.routes import api
 from api.admin import setup_admin
 
@@ -25,6 +25,8 @@ else:
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:////tmp/test.db"
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['JWT_SECRET_KEY'] = 'secret'
+
 MIGRATE = Migrate(app, db)
 db.init_app(app)
 
@@ -32,6 +34,16 @@ config_ma(app) # Marshmallow
 
 # Allow CORS requests to this API
 CORS(app)
+
+jwt = JWTManager(app)
+
+@jwt.user_identity_loader
+def user_identity_lookup(user): return user.id
+
+@jwt.user_lookup_loader
+def user_lookup_callback(_jwt_header, jwt_data):
+    identity = jwt_data["sub"]
+    return User.query.filter_by(id=identity).one_or_none()
 
 # add the admin
 setup_admin(app)

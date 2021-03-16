@@ -21,6 +21,7 @@ marshmallow = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
 marshmallow-enum = "*"
+flask-jwt-extended = "*"
 
 [requires]
 python_version = "3.8"
