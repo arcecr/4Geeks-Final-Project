@@ -1,7 +1,8 @@
 from flask_marshmallow import Marshmallow
 from marshmallow_enum import EnumField
+from marshmallow import fields
 
-from .models import Gender, User, UserGame, Follower # Models
+from .models import Gender, User, UserGame, Follower, Message # Models
 
 ma = Marshmallow()
 
@@ -17,8 +18,8 @@ class UserGameSchema(ma.SQLAlchemyAutoSchema):
 class UserSchema(ma.SQLAlchemyAutoSchema):
     gender = EnumField(Gender, by_value=True, required=True)
     games = ma.Nested(UserGameSchema, many=True, only=['game_id'])
-    followers = ma.List(ma.Nested("FollowerSchema", only=['user_from']))
-    following = ma.List(ma.Nested("FollowerSchema", only=['user_to']))
+    followers = ma.List(ma.Nested("FollowerSchema", only=['follower']))
+    following = ma.List(ma.Nested("FollowerSchema", only=['followed']))
 
     class Meta:
         model = User
@@ -33,3 +34,15 @@ class FollowerSchema(ma.SQLAlchemySchema):
 
     class Meta:
         model = Follower
+
+
+class MessageSchema(ma.SQLAlchemyAutoSchema):
+    user_from = ma.Nested(UserSchema, only=['id', 'username'])
+    user_to = ma.Nested(UserSchema, only=['id', 'username'])
+    class Meta:
+        model = Message
+        load_instance = True
+        include_fk = True
+    
+    sender_user_id = fields.Integer(required=True)
+    receiver_user_id = fields.Integer(required=True)
