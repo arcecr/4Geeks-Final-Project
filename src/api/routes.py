@@ -6,6 +6,9 @@ from sqlalchemy import or_
 from api.models import db, User, Follower, UserGame, Message
 from api.serializer import UserSchema, UserGameSchema, MessageSchema
 
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, current_user
+from datetime import timedelta
+
 
 api = Blueprint('api', __name__)
 
@@ -50,12 +53,16 @@ def logInUser():
     if not user: raise APIException("Wrong username or password", 401)
     if not user.verify_password(password): raise APIException("Wrong username or password", 401)
 
+    expiration = timedelta(days=2)
+    access_token = create_access_token(identity=user, expires_delta=expiration)
+
     return jsonify({
-        "access_token": "secret" # JWT User Token
+        "access_token": access_token
     }), 200
 
 
 @api.route('/users/follow', methods=['POST', 'DELETE'])
+@jwt_required()
 def followUser():
     if not request.data or request.is_json is not True: raise APIException('Missing JSON object', status_code=400)
 
@@ -67,7 +74,7 @@ def followUser():
     if not user_id: raise APIException("Missing data for user_id field.", status_code=422)
     if not username: raise APIException("Missing data for username field.", status_code=422)
 
-    fromUser = User.query.get(1) # Current JWT User
+    fromUser = User.query.get(current_user.id)
     
     toUser = User.query.filter(User.id == user_id, User.username == username).first()
     if not toUser: raise APIException("User not found", status_code=404)
@@ -95,10 +102,11 @@ def followUser():
 
 
 @api.route('/user/games', methods=['GET', 'POST', 'DELETE'])
+@jwt_required()
 def userGames():
     ########################################
     if request.method == "GET":
-        userGames = UserGame.query.filter_by(user_id=1).all() # Current JWT User
+        userGames = UserGame.query.filter_by(user_id=current_user.id).all()
 
         return jsonify(UserGameSchema(many=True, exclude=['id']).dump(userGames)), 200
     ########################################
@@ -110,13 +118,13 @@ def userGames():
     gameId = data.get("game_id", None)
     if not gameId: raise APIException("Missing data for game_id field.", status_code=422)
 
-    hasGame = UserGame.query.filter_by(user_id=1, game_id=gameId).first() # Current JWT User
+    hasGame = UserGame.query.filter_by(user_id=current_user.id, game_id=gameId).first()
 
     ########################################
     if request.method == "POST":
         if hasGame: raise APIException("You already have this game in your list", status_code=409)
 
-        newUserGame = UserGame(user_id=1, game_id=gameId) # Current JWT User
+        newUserGame = UserGame(user_id=current_user.id, game_id=gameId)
         db.session.add(newUserGame)
         db.session.commit()
 
@@ -133,11 +141,12 @@ def userGames():
 
 @api.route('/user/profile', defaults={'username': None})
 @api.route('/user/profile/<username>')
+@jwt_required(optional=True)
 def profileUser(username):
-    if not username:
-        username = User.query.filter_by(id=1).first().username # Check with JWT Token
+    if not username and get_jwt_identity():
+        username = User.query.get(current_user.id).username 
 
-    userQuery = User.query.filter_by(username=username).first()
+    userQuery = User.query.filter_by(username=username).one_or_none()
 
     if not userQuery: raise APIException("User profile not found", status_code=404)
 
@@ -145,8 +154,8 @@ def profileUser(username):
 
 
 @api.route('/user/check', methods=['GET'])
-def checkUserToken():
-    pass
+@jwt_required()
+def checkUserToken(): return jsonify(get_jwt_identity()), 200
 
 
 @api.route('/user/profile', methods=['PUT'])
