@@ -9,6 +9,8 @@ import { Register } from "./pages/register";
 import { About } from "./pages/about";
 import injectContext from "./store/appContext";
 import { Login } from "./pages/login";
+import { GameInfo } from "./pages/gameinfo";
+import { Profile } from "./pages/profile";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -27,6 +29,12 @@ const Layout = () => {
 					<Switch>
 						<Route exact path="/">
 							<Home />
+						</Route>
+						<Route exact path="/gameinfo">
+							<GameInfo />
+						</Route>
+						<Route exact path="/profile">
+							<Profile />
 						</Route>
 						<Route exact path="/register">
 							<Register />

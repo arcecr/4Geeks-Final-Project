@@ -1,15 +1,32 @@
-body {
+.homebody {
   background-color: rgb(36, 39, 49);
   color: white;
 }
+.neonhome {
+  animation: glow 1s ease-in-out infinite alternate;
+}
+.titleh1{
+  font-size: 7.8em;
+  text-align: center;
+  color: #fff;
+}
+.titleh2 {
+  font-size: 5em;
+  text-align: center;
+  color: #fff;
+}
+.bshadowhome {
+  box-shadow: 0.3em 0.3em 1em blue;
+}
 
+
+/* **************** jumbotron ************ */
 .jumbotronBox {
   display: flex;
   flex-direction: column;
   height: 100vh;
   width: 100%;
   padding: 0;
-  margin: 0 0 2em 0;
   background: url("https://images.unsplash.com/photo-1567391454009-0894f63e5550?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
   background-size: cover;
   background-position: center;
@@ -38,34 +55,42 @@ body {
   margin: 2%;
   
 }
-h1{
-  font-size: 7.8em;
-  text-align: center;
-  color: #fff;
+
+
+/* **************** Carousel ************ */
+.boxCarousel {
+  height: 100vh;
+  background: url("https://wallpapercave.com/wp/wp7932324.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-h2 {
-  font-size: 5em;
-  text-align: center;
-  color: #fff;
+.halfBoxCarousel{
+  width: 60em;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
 }
-.neon {
-  animation: glow 1s ease-in-out infinite alternate;
+.halfBoxCarouselTwo{
+  width: 30em;
+  height: auto;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  margin: 0;
 }
-.bg-card {
+.cardstylehome {
   background-color: #1f001a;
   border-radius: 24px;
 }
-
-.card img {
-  border-radius: 24px;
-}
-.bshadow {
-  box-shadow: 0.3em 0.3em 1em blue;
-}
-.boxcarousel {
+.roundBorderhome{
   border-radius: 24px;
 }
 
+
+/* **************** Cards ************ */
 .cardBox{
     margin: 1em 2em 1em 0;
     width: 21rem;
@@ -83,7 +108,6 @@ h2 {
   flex-wrap: wrap;
   height: auto;
   width: 100%;
-  align-items: center;
   justify-content: center;
 }
 
