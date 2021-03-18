@@ -1,4 +1,5 @@
-from flask import Flask, request, jsonify, url_for, Blueprint
+import os
+from flask import Flask, request, jsonify, url_for, Blueprint, current_app
 from api.utils import APIException
 
 from marshmallow import ValidationError
@@ -6,12 +7,13 @@ from sqlalchemy import or_
 from api.models import db, User, Follower, UserGame, Message
 from api.serializer import UserSchema, UserGameSchema, MessageSchema
 
-from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity, current_user
+from flask_jwt_extended import create_access_token, jwt_required, current_user, get_jwt_identity
 from datetime import timedelta
+from urllib.parse import urlparse
 
+from flask_mail import Message
 
 api = Blueprint('api', __name__)
-
 
 @api.route('/users/register', methods=['POST'])
 def signUpUser():
@@ -75,6 +77,8 @@ def followUser():
     if not username: raise APIException("Missing data for username field.", status_code=422)
 
     fromUser = User.query.get(current_user.id)
+
+    if user_id == fromUser.id: raise APIException("You can't follow yourself", status_code=404)
     
     toUser = User.query.filter(User.id == user_id, User.username == username).first()
     if not toUser: raise APIException("User not found", status_code=404)
@@ -143,14 +147,13 @@ def userGames():
 @api.route('/user/profile/<username>')
 @jwt_required(optional=True)
 def profileUser(username):
-    if not username and get_jwt_identity():
-        username = User.query.get(current_user.id).username 
+    if not username and get_jwt_identity(): username = User.query.get(current_user.id).username 
 
     userQuery = User.query.filter_by(username=username).one_or_none()
 
     if not userQuery: raise APIException("User profile not found", status_code=404)
 
-    return jsonify(UserSchema().dump(userQuery)), 200
+    return jsonify(UserSchema(exclude=['email', 'is_active']).dump(userQuery)), 200
 
 
 @api.route('/user/check', methods=['GET'])
@@ -158,21 +161,89 @@ def profileUser(username):
 def checkUserToken(): return jsonify(get_jwt_identity()), 200
 
 
-@api.route('/user/profile', methods=['PUT'])
-def updateUserProfile():
-    pass
-
-
 @api.route('/users/message', methods=['POST'])
+@jwt_required()
 def sendMessage():
-    pass
+    if not request.data or request.is_json is not True: raise APIException('Missing JSON object', status_code=400)
+
+    data = request.json
+    messageSchema = MessageSchema()
+
+    try: message = messageSchema.load(data)
+    except ValidationError as err: raise APIException(err.messages, status_code=422)
+
+    fromUser = User.query.get(current_user.id)
+    message.sender_user_id = fromUser.id
+
+    toUser = User.query.filter_by(id=message.receiver_user_id).one_or_none()
+    if not toUser: raise APIException("User not found to send message", status_code=404)
+
+    message.receiver_user_id = toUser.id
+    
+    db.session.add(message)
+    db.session.commit()
+
+    return jsonify({
+        "message": "Successful operation"
+    }), 201
 
 
-@api.route('/users/resetpassword', methods=['POST'])
+@api.route('/users/forgot_password', methods=['POST'])
+def forgotPassword():
+    if not request.data or request.is_json is not True: raise APIException('Missing JSON object', status_code=400)
+
+    body = request.json
+
+    # Verificar si llegó el parametro email
+    email = body.get("email")
+    if not email: raise APIException("Missing data for email field", status_code=422)
+
+    # Buscar coincidencia de usuario con el mismo email
+    userQuery = User.query.filter_by(email=email).one_or_none()
+
+    # Si existe el usuario con ese email
+    #########################################################
+    if userQuery:
+        expiration = timedelta(minutes=15)
+        token = create_access_token(identity=userQuery, expires_delta=expiration)
+        token = token.replace(".", "$")
+
+        msg = Message("[BeGamer] Reset Your Password",
+            sender="begamer.appcr@gmail.com",
+            recipients=[userQuery.email]
+        )
+
+        msg.html = 'This link is only valid for 15 minutes. To reset your password, visit the following link: <a href="{url}">Click Here!</>'\
+            .format(url=urlparse('{url}/reset_password/{token}'.format(url=os.environ.get('FRONTEND_URL'), token=token)).geturl())
+
+        current_app.mail.send(msg)
+    ########################################################
+
+    return jsonify({
+        "message": "An email has been sent with instructions to reset your password"
+    }), 200
+
+
+@api.route('/users/reset_password', methods=['POST'])
+@jwt_required()
 def resetPassword():
-    pass
+    if not request.data or request.is_json is not True: raise APIException('Missing JSON object', status_code=400)
 
+    # Verificar si existe el usuario con el Id que se recibe con el JWT Token
+    userQuery = User.query.filter_by(id=current_user.id).one_or_none()
+    if not userQuery: raise APIException("User not found", status_code=404)
 
-@api.route('/users/resetpassword/<token>', methods=['POST'])
-def resetPasswordWithToken(token):
-    pass
+    body = request.json
+
+    password = body.get("password")
+    confirmPassword = body.get("confirm_password")
+
+    # Verificar que las passwords estén y que sean iguales
+    if not password and not confirmPassword: raise APIException("Missing data for password or confirm_password field", status_code=422)
+    if password != confirmPassword: raise APIException("Your password and confirmation password do not match", status_code=400)
+
+    # Generar nueva contraseña y actualizar
+    userQuery.gen_hash_password(password)
+    db.session.commit()
+
+    return jsonify(), 204

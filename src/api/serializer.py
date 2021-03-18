@@ -42,7 +42,6 @@ class MessageSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Message
         load_instance = True
-        include_fk = True
     
-    sender_user_id = fields.Integer(required=True)
+    sender_user_id = fields.Integer()
     receiver_user_id = fields.Integer(required=True)
