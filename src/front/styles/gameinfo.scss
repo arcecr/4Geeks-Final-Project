@@ -1,0 +1,57 @@
+.gamebigbox {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.boxOneinfo {
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.8);
+  height: 70%;
+  width: 45em;
+  color: white;
+}
+.backButtoninfo{
+  margin: 0.3em;
+  font-size: 5em;
+  text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #6bf800, 0 0 5px #6bf800, 0 0 5px #6bf800, 0 0 5px #6bf800, 0 0 5px #6bf800;
+}
+.titleNameinfo{
+  font-size: 15em;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+}
+.titleNameinfo h1{
+  font-size: 0.3em;
+  text-shadow: 0 0 5px #fff, 0 0 5px #fff, 0 0 5px #0073e6, 0 0 5px #0073e6, 0 0 5px #0073e6, 0 0 5px #0073e6, 0 0 5px #0073e6;
+}
+
+/*************** ******************/
+.boxTwoinfo {
+  background: rgba(0, 0, 0, 0.8);
+  height: 70%;
+  width: 45em;
+}
+.infoBox {
+  flex-direction: column;
+  height:100%;
+  width: 100%;
+}
+.titleh5info{
+  font-size: 1.2em;
+  color: lightgrey;
+}
+.ptextinfo{
+  font-size: 0.8em;
+  color: white;
+}
+
+.roundBorderinfo{
+  border-radius: 24px;
+}
