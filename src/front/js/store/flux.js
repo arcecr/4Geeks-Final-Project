@@ -42,14 +42,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-			register: (name, email, password, username, gender, birthday) => {
+			register: data => {
 				const loginUp = {
-					name: name,
-					email: email,
-					password: password,
-					username: username,
-					gender: gender,
-					birthday: birthday
+					name: data.name,
+					email: data.email,
+					password: data.password,
+					username: data.username,
+					gender: data.gender,
+					birthday: data.birthday
 				};
 
 				const response = fetch("https://3001-silver-urial-61mk04bk.ws-us03.gitpod.io/api/users/register", {

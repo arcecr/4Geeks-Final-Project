@@ -3,29 +3,85 @@ import { Context } from "../store/appContext";
 import "../../styles/register_and_login.scss";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
+import { Form, Alert } from "react-bootstrap";
 
 export const Register = () => {
 	const { store, actions } = useContext(Context);
 	const history = useHistory();
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [username, setUsername] = useState("");
-	const [gender, setGender] = useState("");
-	const [birthday, setBirthday] = useState("");
+
+	const [showAlert, setShowAlert] = useState(false);
+	const [msgAlert, setMsgAlert] = useState();
+	const handleClose = () => setShowAlert(false);
+
+	const [form, setForm] = useState({});
+	const [errors, setErrors] = useState({});
+
+	const setField = (field, value) => {
+		setForm({
+			...form,
+			[field]: value
+		});
+		// Check and see if errors exist, and remove them from the error object:
+		if (!!errors[field])
+			setErrors({
+				...errors,
+				[field]: null
+			});
+	};
 
 	const handleSubmit = () => {
-		actions
-			.register(name, email, password, username, gender, birthday)
-			.then(response => response.json().then(data => ({ status: response.status, body: data })))
-			.then(result => {
-				if (result.status === 201) {
-					history.push("/login");
-				}
-			})
-			.catch(error => {
-				console.error("Error:", error);
-			});
+		const newErrors = findFormErrors();
+		// Conditional logic:
+		if (Object.keys(newErrors).length > 0) {
+			// We got errors!
+			setErrors(newErrors);
+		} else {
+			actions
+				.register(form)
+				.then(response => response.json().then(data => ({ status: response.status, body: data })))
+				.then(result => {
+					if (result.status === 409) {
+						setMsgAlert(result.body.message);
+						setShowAlert(true);
+					}
+
+					if (result.status === 201) {
+						history.push("/login");
+					}
+				})
+				.catch(error => {
+					console.error("Error:", error);
+				});
+		}
+	};
+
+	const findFormErrors = () => {
+		const { name, email, password, username, gender, birthday } = form;
+		const newErrors = {};
+		const emailPattern = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i;
+
+		// name errors
+		if (!name || name === "") newErrors.name = "Cannot be blank!";
+		else if (name.length > 20) newErrors.name = "Name is too long!";
+
+		// email errors
+		if (!email || email === "") newErrors.email = "Cannot be blank!";
+		else if (!emailPattern.test(email)) newErrors.email = "Email is not valid!";
+
+		// password errors
+		if (!password || password === "") newErrors.password = "Cannot be blank!";
+		else if (password.length < 5) newErrors.password = "Password is too short!";
+
+		// username errors
+		if (!username || username === "") newErrors.username = "Cannot be blank!";
+
+		// gender errors
+		if (!gender || gender === "") newErrors.gender = "Cannot be blank!";
+
+		// birth day errors
+		if (!birthday || birthday === "") newErrors.birthday = "Cannot be blank!";
+
+		return newErrors;
 	};
 
 	return (
@@ -40,102 +96,84 @@ export const Register = () => {
 					</Link>
 				</div>
 				<div className="agileits-top">
-					<form className="was-validated" action="#" method="post">
-						<div className="form-group">
-							<label htmlFor="validationCustom01" className="form-label">
-								Name
-							</label>
-							<input
+					<form className="needs-validation" action="#" method="post">
+						<Alert variant="danger" dismissible onClose={handleClose} show={showAlert}>
+							{msgAlert}
+						</Alert>
+						<Form.Group>
+							<Form.Label>Name</Form.Label>
+							<Form.Control
 								type="text"
-								className="form-control"
-								id="validationCustom01"
-								placeholder="Name"
-								onChange={e => setName(e.target.value)}
-								required
+								onChange={e => setField("name", e.target.value)}
+								isInvalid={!!errors.name}
+								placeholder="Enter yor complete name"
 							/>
-							<div className="invalid-feedback">Please provide a valid name.</div>
-							<div className="valid-feedback">Looks good!</div>
-						</div>
-						<div className="form-group">
-							<label htmlFor="validationCustom02" className="form-label">
-								Email
-							</label>
-							<input
-								type="email"
-								className="form-control"
-								id="exampleInputEmail1"
-								aria-describedby="emailHelp"
-								placeholder="Enter email"
-								onChange={e => setEmail(e.target.value)}
-								required
-							/>
-							<div className="invalid-feedback">Please provide a valid email.</div>
-							<div className="valid-feedback">Looks good!</div>
-						</div>
-						<div className="form-group">
-							<label htmlFor="validationCustom03" className="form-label">
-								Password
-							</label>
-							<input
-								type="password"
-								className="form-control"
-								id="exampleInputPassword1"
-								placeholder="Password"
-								onChange={e => setPassword(e.target.value)}
-								required
-							/>
-							<div className="invalid-feedback">Please provide a password.</div>
-							<div className="valid-feedback">Looks good!</div>
-						</div>
-						<div className="form-group">
-							<label htmlFor="validationCustom03" className="form-label">
-								User Name
-							</label>
-							<input
+							<Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+						</Form.Group>
+
+						<Form.Group>
+							<Form.Label>Email</Form.Label>
+							<Form.Control
 								type="text"
-								className="form-control"
-								id="exampleInputPassword1"
-								placeholder="User Name"
-								onChange={e => setUsername(e.target.value)}
+								onChange={e => setField("email", e.target.value)}
+								isInvalid={!!errors.email}
+								placeholder="Enter an email"
 								required
 							/>
-							<div className="invalid-feedback">Please provide a username.</div>
-							<div className="valid-feedback">Looks good!</div>
-						</div>
-						<div className="form-group">
-							<label htmlFor="validationCustom03" className="form-label">
-								Gender
-							</label>
-							<select
-								id="inputState"
-								className="form-control"
-								onChange={e => setGender(e.target.value)}
-								placeholder
-								required>
-								{/* <option defaultValue>Choose...</option> */}
+							<Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+						</Form.Group>
+
+						<Form.Group>
+							<Form.Label>Password</Form.Label>
+							<Form.Control
+								type="text"
+								onChange={e => setField("password", e.target.value)}
+								isInvalid={!!errors.password}
+								placeholder="Enter a password"
+								required
+							/>
+							<Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+						</Form.Group>
+
+						<Form.Group>
+							<Form.Label>User Name</Form.Label>
+							<Form.Control
+								type="text"
+								onChange={e => setField("username", e.target.value)}
+								isInvalid={!!errors.username}
+								placeholder="Enter an User name"
+								required
+							/>
+							<Form.Control.Feedback type="invalid">{errors.username}</Form.Control.Feedback>
+						</Form.Group>
+
+						<Form.Group>
+							<Form.Label>Gender</Form.Label>
+							<Form.Control
+								as="select"
+								onChange={e => setField("gender", e.target.value)}
+								isInvalid={!!errors.gender}>
 								<option selected disabled value="">
 									Choose...
 								</option>
 								<option value="male">Male</option>
 								<option value="female">Female</option>
-							</select>
-							<div className="invalid-feedback">Please provide a gender.</div>
-							<div className="valid-feedback">Looks good!</div>
-						</div>
-						<div className="form-group">
-							<label htmlFor="validationCustom03" className="form-label">
-								Birth Day
-							</label>
-							<input
+							</Form.Control>
+							<Form.Control.Feedback type="invalid">{errors.gender}</Form.Control.Feedback>
+						</Form.Group>
+
+						<Form.Group>
+							<Form.Label>Birth day</Form.Label>
+							<Form.Control
 								type="date"
-								className="form-control"
-								id="exampleInputPassword1"
-								onChange={e => setBirthday(e.target.value)}
+								onChange={e => setField("birthday", e.target.value)}
+								isInvalid={!!errors.birthday}
+								placeholder="Enter your birth day"
 								required
 							/>
-							<div className="invalid-feedback">Please provide a birthday.</div>
-							<div className="valid-feedback">Looks good!</div>
-						</div>
+							<Form.Control.Feedback type="invalid">{errors.birthday}</Form.Control.Feedback>
+						</Form.Group>
+
 						<div className="wthree-text">
 							<label className="anim">
 								<div className="login_text">Have an account?</div>
