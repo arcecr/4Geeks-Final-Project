@@ -41,6 +41,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			register: data => {
+				const loginUp = {
+					name: data.name,
+					email: data.email,
+					password: data.password,
+					username: data.username,
+					gender: data.gender,
+					birthday: data.birthday
+				};
+
+				const response = fetch("https://3001-silver-urial-61mk04bk.ws-us03.gitpod.io/api/users/register", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(loginUp)
+				});
+				return response;
 			}
 		}
 	};
