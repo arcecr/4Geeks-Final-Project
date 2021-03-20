@@ -214,7 +214,7 @@ def forgotPassword():
         )
 
         msg.html = 'This link is only valid for 15 minutes. To reset your password, visit the following link: <a href="{url}">Click Here!</>'\
-            .format(url=urlparse('{url}/reset_password/{token}'.format(url=os.environ.get('FRONTEND_URL'), token=token)).geturl())
+            .format(url=urlparse('{url}/change_password/{token}'.format(url=os.environ.get('FRONTEND_URL'), token=token)).geturl())
 
         current_app.mail.send(msg)
     ########################################################
@@ -224,9 +224,9 @@ def forgotPassword():
     }), 200
 
 
-@api.route('/users/reset_password', methods=['POST'])
+@api.route('/users/change_password', methods=['POST'])
 @jwt_required()
-def resetPassword():
+def changePassword():
     if not request.data or request.is_json is not True: raise APIException('Missing JSON object', status_code=400)
 
     # Verificar si existe el usuario con el Id que se recibe con el JWT Token
