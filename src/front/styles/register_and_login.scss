@@ -80,6 +80,7 @@ background-image: url("https://wallpapercave.com/wp/wp6690516.jpg");;
   margin-top: -10px;
 }
 
+/*
 input[type="text"], input[type="email"], input[type="password"] {
   font-size: 0.9em;
   color: #fff;
@@ -99,7 +100,7 @@ input[type="text"], input[type="email"], input[type="password"] {
   color: #fff;
   font-family: 'Roboto', sans-serif;
 }
-
+*/
 input.email, input.text.w3lpass {
   margin: 2em 0;
 }
@@ -121,6 +122,7 @@ input.email, input.text.w3lpass {
   visibility: visible !important;
 }
 
+/*
 input[type="submit"] {
   font-size: .9em;
   color: #fff;
@@ -142,7 +144,7 @@ input[type="submit"]:hover {
   -ms-transition: .5s all;
   transition: .5s all;
   background: rgb(72, 101, 196);
-}
+}*/
 
 .agileits-top p {
   font-size: 1em;
@@ -183,9 +185,11 @@ input.checkbox:before {
   cursor: pointer;
 }
 
+/*
 label {
     margin: 10px;
 }
+*/
 
 @keyframes rippling {
   50% {
@@ -270,15 +274,17 @@ label {
 
 /*-- responsive-design --*/
 @media(max-width:1440px) {
+    /*
   input[type="text"], input[type="email"], input[type="password"] {
     width: 94%;
-  }
+  }*/
 }
 
 @media(max-width:1366px) {
+    /*
   h1 {
     font-size: 2.6em;
-  }
+  }*/
 
   .agileits-top {
     padding: 2.5em;
@@ -326,9 +332,10 @@ label {
     width: 58%;
   }
 
+  /*
   input[type="text"], input[type="email"], input[type="password"] {
     width: 93%;
-  }
+  }*/
 }
 
 @media(max-width:800px) {
@@ -358,6 +365,7 @@ label {
     margin: 1.5em 0;
   }
 
+  /*
   input[type="submit"] {
     margin: 2em 0;
   }
@@ -365,7 +373,7 @@ label {
   h1 {
     font-size: 2em;
     letter-spacing: 3px;
-  }
+  }*/
 }
 
 @media(max-width:568px) {
@@ -379,29 +387,32 @@ label {
 }
 
 @media(max-width:480px) {
+    /*
   h1 {
     font-size: 1.8em;
     letter-spacing: 3px;
-  }
+  }*/
 
   .agileits-top {
     padding: 1.8em;
   }
 
+  /*
   input[type="text"], input[type="email"], input[type="password"] {
     width: 91%;
   }
-
+*/
   .agileits-top p {
     font-size: 0.9em;
   }
 }
 
 @media(max-width:414px) {
+    /*
   h1 {
     font-size: 1.8em;
     letter-spacing: 2px;
-  }
+  }*/
 
   .main-agileinfo {
     width: 85%;
@@ -421,14 +432,16 @@ label {
     margin-top: 1.5em;
   }
 
+  /*
   input[type="submit"] {
     margin: 2em 0 1.5em;
     letter-spacing: 3px;
-  }
+  }*/
 
+  /*
   input[type="submit"] {
     margin: 2em 0 1.5em;
-  }
+  }*/
 
   .colorlibcopy-agile {
     margin: 1em 0 1em;
@@ -464,15 +477,17 @@ label {
     margin: 0 0 1em;
   }
 
+  /*
   input[type="text"], input[type="email"], input[type="password"] {
     width: 89.5%;
     font-size: 0.85em;
-  }
+  }*/
 
+  /*
   h1 {
     font-size: 1.7em;
     letter-spacing: 0px;
-  }
+  }*/
 
   .main-agileinfo {
     width: 92%;
@@ -483,11 +498,12 @@ label {
     background-position: 0 0px;
   }
 
+  /*
   input[type="submit"] {
     margin: 1.5em 0;
     padding: 0.8em;
     font-size: .85em;
-  }
+  }*/
 
   .colorlibcopy-agile p {
     font-size: .85em;

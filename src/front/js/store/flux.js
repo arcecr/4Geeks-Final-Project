@@ -52,13 +52,54 @@ const getState = ({ getStore, getActions, setStore }) => {
 					birthday: data.birthday
 				};
 
-				const response = fetch("https://3001-silver-urial-61mk04bk.ws-us03.gitpod.io/api/users/register", {
+				const response = fetch("https://begamer-dev.herokuapp.com/api/users/register", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
 					},
 					body: JSON.stringify(loginUp)
 				});
+				return response;
+			},
+			forgotPassword: email => {
+				const response = fetch("https://begamer-dev.herokuapp.com/api/users/forgot_password", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify({
+						email: email
+					})
+				});
+
+				return response;
+			},
+			changePassword: (token, data) => {
+				token = token.replaceAll("$", ".");
+
+				const response = fetch("https://begamer-dev.herokuapp.com/api/users/change_password", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + token
+					},
+					body: JSON.stringify(data)
+				});
+
+				return response;
+			},
+			checkToken: token => {
+				token = token ? token.replaceAll("$", ".") : sessionStorage.getItem("userToken");
+
+				const response = fetch("https://begamer-dev.herokuapp.com/api/user/check", {
+					method: "GET",
+					headers: {
+						Accept: "application/json",
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + token
+					}
+				});
+
 				return response;
 			}
 		}
