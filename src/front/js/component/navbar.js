@@ -5,11 +5,9 @@ import "../../styles/navbar.scss";
 export const Navbar = () => {
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark fixed-top" style={{ background: "black" }}>
-			<Link to="/">
-				<a className="navbar-brand" href="#">
-					<p className="neon">Be</p>
-					<p>Gamer</p>
-				</a>
+			<Link to="/" className="navbar-brand">
+				<p className="neon">Be</p>
+				<p>Gamer</p>
 			</Link>
 			<button
 				className="navbar-toggler"
@@ -34,14 +32,14 @@ export const Navbar = () => {
 					<li className="nav-item">
 						<Link to="/login">
 							<a className="nav-link">
-								Login <span className="sr-only">(current)</span>
+								Sign In <span className="sr-only">(current)</span>
 							</a>
 						</Link>
 					</li>
 					<li className="nav-item">
 						<Link to="/register">
 							<a className="nav-link">
-								SingUp <span className="sr-only">(current)</span>
+								Sign Up <span className="sr-only">(current)</span>
 							</a>
 						</Link>
 					</li>
@@ -52,20 +50,7 @@ export const Navbar = () => {
 							</a>
 						</Link>
 					</li>
-					<li className="nav-item">
-						<Link to=" ">
-							<a className="nav-link">
-								SiteMap <span className="sr-only">(current)</span>
-							</a>
-						</Link>
-					</li>
 				</ul>
-				<form className="form-inline my-2 my-lg-0">
-					<input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
-					<button className="btn btn-outline-success my-2 my-sm-0" type="submit">
-						Search
-					</button>
-				</form>
 			</div>
 		</nav>
 	);

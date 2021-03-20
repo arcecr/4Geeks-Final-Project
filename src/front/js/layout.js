@@ -13,12 +13,11 @@ import { GameInfo } from "./pages/gameinfo";
 import { Profile } from "./pages/profile";
 
 import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
 
-//create your first component
+import ForgotPassword from "./pages/ForgotPassword";
+import ChangePassword from "./pages/ChangePassword";
+
 const Layout = () => {
-	//the basename is used when your project is published in a subdirectory and not in the root of the domain
-	// you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
 	const basename = process.env.BASENAME || "";
 
 	return (
@@ -42,6 +41,12 @@ const Layout = () => {
 						<Route exact path="/login">
 							<Login />
 						</Route>
+						<Route exact path="/forgot_password">
+							<ForgotPassword />
+						</Route>
+						<Route exact path="/change_password/:token">
+							<ChangePassword />
+						</Route>
 						<Route exact path="/demo">
 							<Demo />
 						</Route>
@@ -55,7 +60,6 @@ const Layout = () => {
 							<h1>Not found!</h1>
 						</Route>
 					</Switch>
-					<Footer />
 				</ScrollToTop>
 			</BrowserRouter>
 		</div>
