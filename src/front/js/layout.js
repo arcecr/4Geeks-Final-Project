@@ -8,12 +8,13 @@ import { Single } from "./pages/single";
 import { Register } from "./pages/register";
 import { About } from "./pages/about";
 import injectContext from "./store/appContext";
-import { Login } from "./pages/login";
+
 import { GameInfo } from "./pages/gameinfo";
 import { Profile } from "./pages/profile";
 
 import { Navbar } from "./component/navbar";
 
+import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
 

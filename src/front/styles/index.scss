@@ -4,10 +4,14 @@
 
 .forgot_password_bg {
     background-image: url("https://wallpapercave.com/wp/wp6690516.jpg");
-    background-color: rgba(255, 255, 255, .4);
     background-size: cover;
 }
 
-.forgot_password_box {
+.forgot_password_box, .login_box {
     background-color: white
+}
+
+.login_bg {
+    background-image: url("https://ui8-unity-gaming.herokuapp.com/img/bg-sign-in.png");
+    background-size: cover;
 }

@@ -13,7 +13,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			isUserAuth: false
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -101,7 +102,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 				});
 
 				return response;
-			}
+			},
+
+			logIn: data => {
+				const response = fetch("https://begamer-dev.herokuapp.com/api/users/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(data)
+				});
+
+				return response;
+			},
+
+			getUserToken: () => sessionStorage.getItem("userToken"),
+			setUserToken: token => sessionStorage.setItem("userToken", token),
+			removeUserToken: () => sessionStorage.removeItem("userToken"),
+
+			setUserAuth: () => setStore({ isUserAuth: true }),
+			unsetUserAuth: () => setStore({ isUserAuth: false })
 		}
 	};
 };
