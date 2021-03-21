@@ -1,6 +1,6 @@
 from flask_marshmallow import Marshmallow
 from marshmallow_enum import EnumField
-from marshmallow import fields
+from marshmallow import fields, EXCLUDE
 
 from .models import Gender, User, UserGame, Follower, Message # Models
 
@@ -24,6 +24,7 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = User
         load_instance = True
+        unknown = EXCLUDE
 
     password = ma.Field(load_only=True, required=True)
 

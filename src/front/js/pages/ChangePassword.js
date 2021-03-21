@@ -40,10 +40,10 @@ const ChangePassword = () => {
 	};
 
 	return (
-		<div className="forgot_password_bg h-100">
+		<div className="change_password_bg h-100">
 			<Container className="h-100 d-flex justify-content-center align-items-center">
 				<Row className="w-100 d-flex justify-content-center align-items-center">
-					<Col md={5} className="p-4 forgot_password_box rounded">
+					<Col md={5} className="p-4 change_password_box rounded">
 						{isLoading ? (
 							<div className="text-center">
 								<i className="fas fa-spinner-third fa-spin" />
