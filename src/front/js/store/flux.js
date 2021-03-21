@@ -45,7 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 			register: data => {
-				const response = fetch(getStore().apiURL + "/api/users/register", {
+				const response = fetch(getStore().apiURL + "/users/register", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
