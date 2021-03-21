@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			apiURL: process.env.BACKEND_URL,
 			message: null,
 			demo: [
 				{
@@ -44,26 +45,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ demo: demo });
 			},
 			register: data => {
-				const loginUp = {
-					name: data.name,
-					email: data.email,
-					password: data.password,
-					username: data.username,
-					gender: data.gender,
-					birthday: data.birthday
-				};
-
-				const response = fetch("https://begamer-dev.herokuapp.com/api/users/register", {
+				const response = fetch(getStore().apiURL + "/api/users/register", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
 					},
-					body: JSON.stringify(loginUp)
+					body: JSON.stringify(data)
 				});
+
 				return response;
 			},
 			forgotPassword: email => {
-				const response = fetch("https://begamer-dev.herokuapp.com/api/users/forgot_password", {
+				const response = fetch(getStore().apiURL + "/users/forgot_password", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
@@ -78,7 +71,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			changePassword: (token, data) => {
 				token = token.replaceAll("$", ".");
 
-				const response = fetch("https://begamer-dev.herokuapp.com/api/users/change_password", {
+				const response = fetch(getStore().apiURL + "/users/change_password", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
@@ -92,7 +85,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			checkToken: token => {
 				token = token ? token.replaceAll("$", ".") : sessionStorage.getItem("userToken");
 
-				const response = fetch("https://begamer-dev.herokuapp.com/api/user/check", {
+				const response = fetch(getStore().apiURL + "/user/check", {
 					method: "GET",
 					headers: {
 						Accept: "application/json",

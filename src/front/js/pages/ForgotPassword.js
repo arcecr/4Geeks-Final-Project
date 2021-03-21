@@ -47,8 +47,10 @@ const ForgotPassword = () => {
 						</Alert>
 						<h3>Reset password</h3>
 						<Form onSubmit={e => e.preventDefault()}>
-							<Form.Label>Enter your email below to receive a link to reset your password.</Form.Label>
 							<Form.Group>
+								<Form.Label>
+									Enter your email below to receive a link to reset your password.
+								</Form.Label>
 								<Form.Control
 									name="email"
 									type="email"

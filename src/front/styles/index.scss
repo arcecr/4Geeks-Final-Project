@@ -2,16 +2,12 @@
     General Styles
 */
 
-.forgot_password_bg {
-    background-image: url("https://wallpapercave.com/wp/wp6690516.jpg");
-    background-size: cover;
-}
-
-.forgot_password_box, .login_box {
+.login_box, .register_box, .forgot_password_box, .change_password_box {
     background-color: white
 }
 
-.login_bg {
+.login_bg, .register_bg, .forgot_password_bg, .change_password_bg {
     background-image: url("https://ui8-unity-gaming.herokuapp.com/img/bg-sign-in.png");
     background-size: cover;
+    background-attachment: fixed;
 }

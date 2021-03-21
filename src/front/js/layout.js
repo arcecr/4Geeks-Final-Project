@@ -5,7 +5,6 @@ import ScrollToTop from "./component/scrollToTop";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
-import { Register } from "./pages/register";
 import { About } from "./pages/about";
 import injectContext from "./store/appContext";
 
@@ -14,6 +13,7 @@ import { Profile } from "./pages/profile";
 
 import { Navbar } from "./component/navbar";
 
+import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
