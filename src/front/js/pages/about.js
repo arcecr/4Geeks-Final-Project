@@ -7,16 +7,16 @@ export const About = () => {
 	const { store, actions } = useContext(Context);
 	return (
 		<>
-			<div className="bg">
-				<div className="container py-5">
+			<div className="aboutbg">
+				<div className="aboutcontainer py-5">
 					<div className="row h-100 align-items-center py-5">
-						{/* <h1 className="neon">About</h1> */}
+						{/* <h1 className="aboutneon">About</h1> */}
 						<div className="col-lg-6">
-							<h1 id="neon" className="display-4">
+							<h1 id="aboutneon" className="display-4">
 								About us
 							</h1>
-							<p className="lead text-white mb-0">Meet the team thats create this app.</p>
-							<p className="lead text-white">
+							<p className="aboutp lead text-white mb-0">Meet the team thats create this app.</p>
+							<p className="aboutp lead text-white">
 								In colaboration with{" "}
 								<a href="https://4geeksacademy.com/es/inicio" className="text-white">
 									<u>4Geeks Academy</u>
@@ -34,15 +34,15 @@ export const About = () => {
 				</div>
 			</div>
 			{/* // Componente 2 */}
-			<div className="bg-2 py-5">
-				<div className="container py-5">
+			<div className="aboutbg-2 py-5">
+				<div className="aboutcontainer py-5">
 					<div className="row align-items-center mb-5">
 						<div className="col-lg-6 order-2 order-lg-1">
 							<i className="fa fa-bar-chart fa-2x mb-3 text-primary" />
-							<h2 className="font-weight-light">
+							<h2 className="abouth2 font-weight-light">
 								Ministerio de Ciencia, Tecnología y Telecomunicaciones
 							</h2>
-							<p className="font-italic text-white mb-4">
+							<p className="aboutp font-italic text-white mb-4">
 								Thanks to the Ministerio de Ciencia, Tecnología y Telecomunicaciones of Costa Rica.
 							</p>
 							<a
@@ -69,8 +69,10 @@ export const About = () => {
 						</div>
 						<div className="col-lg-6">
 							<i className="fa fa-leaf fa-2x mb-3 text-primary" />
-							<h2 className="font-weight-light">Agencia de Promoción de Inversiones de Costa Rica</h2>
-							<p className="font-italic text-white mb-4">
+							<h2 className="abouth2 font-weight-light">
+								Agencia de Promoción de Inversiones de Costa Rica
+							</h2>
+							<p className="aboutp font-italic text-white mb-4">
 								Thanks to the Agencia de Promoción de Inversiones de Costa Rica.
 							</p>
 							<a
@@ -83,12 +85,14 @@ export const About = () => {
 				</div>
 			</div>
 			{/* Componente 3 */}
-			<div className="bg-3 py-5">
-				<div className="container py-5">
+			<div className="aboutbg-3 py-5">
+				<div className="aboutcontainer py-5">
 					<div className="row mb-4">
 						<div className="col-lg-5">
-							<h2 className="display-4 font-weight-light">Our team</h2>
-							<p className="font-italic text-white">This is the team thats made posible ©BeGamer</p>
+							<h2 className="abouth2 display-4 font-weight-light">Our team</h2>
+							<p className="aboutp font-italic text-white">
+								This is the team thats made posible ©BeGamer
+							</p>
 						</div>
 					</div>
 				</div>
@@ -108,7 +112,7 @@ export const About = () => {
 							<span className="small text-uppercase text-muted">CEO - Founder</span>
 							<ul className="social mb-0 list-inline mt-3">
 								<li className="list-inline-item">
-									<a href="https://github.com/anafranama" className="social-link">
+									<a href="https://github.com/anafranama" className="aboutsocial-link">
 										<i className="fab fa-github" />
 									</a>
 								</li>
@@ -128,7 +132,7 @@ export const About = () => {
 							<span className="small text-uppercase text-muted">CEO - Founder</span>
 							<ul className="social mb-0 list-inline mt-3">
 								<li className="list-inline-item">
-									<a href="https://github.com/dagove47" className="social-link">
+									<a href="https://github.com/dagove47" className="aboutsocial-link">
 										<i className="fab fa-github" />
 									</a>
 								</li>
@@ -148,7 +152,7 @@ export const About = () => {
 							<span className="small text-uppercase text-muted">CEO - Founder</span>
 							<ul className="social mb-0 list-inline mt-3">
 								<li className="list-inline-item">
-									<a href="https://github.com/DavidRivasM" className="social-link">
+									<a href="https://github.com/DavidRivasM" className="aboutsocial-link">
 										<i className="fab fa-github" />
 									</a>
 								</li>
@@ -168,7 +172,7 @@ export const About = () => {
 							<span className="small text-uppercase text-muted">CEO - Founder</span>
 							<ul className="social mb-0 list-inline mt-3">
 								<li className="list-inline-item">
-									<a href="https://github.com/arcecr" className="social-link">
+									<a href="https://github.com/arcecr" className="aboutsocial-link">
 										<i className="fab fa-github" />
 									</a>
 								</li>

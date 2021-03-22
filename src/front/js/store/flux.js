@@ -15,10 +15,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					initial: "white"
 				}
 			],
-			isUserAuth: false
+			isUserAuth: false,
+			games: [],
+			cardsinfo: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
+			loadGames: () => {
+				fetch("https://api.rawg.io/api/games")
+					.then(data => data.json())
+					.then(data => {
+						let allGames = data.results;
+						setStore({ games: allGames });
+					});
+			},
+			loadGameById: id => {
+				const response = fetch("https://api.rawg.io/api/games/" + id);
+				return response;
+			},
+
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
 			},

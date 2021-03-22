@@ -4,7 +4,11 @@
     // color: black;
 }
 */
-#neon {
+.aboutcontainer {
+    margin-top: 100px;
+    // color: black;
+}
+#aboutneon {
   animation: glow 1s ease-in-out infinite alternate;
 font-size: 100px;
 }
@@ -17,7 +21,7 @@ font-size: 100px;
   }
 }
 
-.social-link {
+.aboutsocial-link {
   width: 30px;
   height: 30px;
   border: 1px solid #ddd;
@@ -30,40 +34,38 @@ font-size: 100px;
   font-size: 0.9rem;
 }
 
-.social-link:hover,
-.social-link:focus {
+.aboutsocial-link:hover,
+.aboutsocial-link:focus {
   background: rgb(34, 4, 4);
   text-decoration: none;
   color: #555;
 }
 
-/*
-.bg {background-image: url("https://wallpapermemory.com/uploads/645/pac-man-background-hd-1440x960-231834.jpg");
+.aboutbg {background-image: url("https://wallpapermemory.com/uploads/645/pac-man-background-hd-1440x960-231834.jpg");
 background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
   border-bottom: solid 3px black;
   }
 
-.bg-2 {
+.aboutbg-2 {
     background-image: url("https://wallpaperaccess.com/full/1507729.jpg");
 background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
   border-bottom: solid 3px black;
 }
-.bg-3 {
+.aboutbg-3 {
     background-image: url("https://images.alphacoders.com/163/thumb-1920-163973.jpg");
 background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
   border-bottom: solid 3px black;
 }
-p{
+.aboutp{
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     font-size: 20px;
 }
-h2 {
+.abouth2 {
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-    
-}*/
+}
