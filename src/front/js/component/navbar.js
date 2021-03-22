@@ -32,7 +32,7 @@ export const Navbar = () => {
 					<li className="nav-item">
 						<Link to="/login">
 							<a className="nav-link">
-								Sign In <span className="sr-only">(current)</span>
+								Log In <span className="sr-only">(current)</span>
 							</a>
 						</Link>
 					</li>
@@ -47,6 +47,13 @@ export const Navbar = () => {
 						<Link to="/about">
 							<a className="nav-link">
 								About <span className="sr-only">(current)</span>
+							</a>
+						</Link>
+					</li>
+					<li className="nav-item">
+						<Link to=" ">
+							<a className="nav-link">
+								Site Map <span className="sr-only">(current)</span>
 							</a>
 						</Link>
 					</li>

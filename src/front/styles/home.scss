@@ -1,6 +1,9 @@
 .homebody {
   background-color: rgb(36, 39, 49);
   color: white;
+  background-image: url("https://images.unsplash.com/photo-1546640646-89b557854b23?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
+  background-size: cover;
+  background-attachment: fixed;
 }
 .neonhome {
   animation: glow 1s ease-in-out infinite alternate;
@@ -42,10 +45,13 @@
 }
 .jumboTop {
   display: flex;
+  padding-right: 7%;
   flex-direction: column;
-  width: 40%;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
   height: auto;
-  margin: 0 0 7% 7%;
+  margin-bottom: 17%;
 }
 .jumboBottom {
   display: flex;
@@ -53,7 +59,6 @@
   width: 40%;
   height: auto;
   margin: 2%;
-  
 }
 
 
@@ -91,6 +96,9 @@
 
 
 /* **************** Cards ************ */
+.homecardsbox{
+    background: rgba(0, 0, 0, 0.6);
+}
 .cardBox{
     margin: 1em 2em 1em 0;
     width: 21rem;
@@ -110,7 +118,24 @@
   width: 100%;
   justify-content: center;
 }
-
+.cardBodyEffect{
+    &:hover{
+        color: grey;
+    }
+    &:active{
+        color: blue;
+    }
+}
+.homeHeartButtton{
+    color: red;
+    font-size: 1.5em;
+    &:hover{
+            animation: glow 1s ease-in-out infinite;
+        }
+    &:active{
+        color: blue;
+    }
+}
 
 @keyframes glow {
   from {
