@@ -8,18 +8,18 @@ export function HomeCard(props) {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="card cardBox">
+		<div className="cardBox">
 			<img src={props.image} className="card-img-top" alt="..." />
 
 			<div className="card-body">
 				<Link to={"/gameinfo/" + props.id} style={{ color: "inherit", textDecoration: "inherit" }}>
 					<span className="badge bg-info mb-2 w-25">{props.genre}</span>
 					<h5 className="card-title cardBodyEffect">{props.name}</h5>
-					<p className="card-text cardBodyEffect">Release Date: {props.released}</p>
+					<p className="card-text cardBodyEffect mb-2">Release Date: {props.released}</p>
 				</Link>
 				<div className="d-flex justify-content-between">
-					<button className="btn homeHeartButtton">
-						<i className="fas fa-heart" />
+					<button className="btn">
+						<i className="fas fa-heart homeHeartButtton" />
 					</button>
 					<button className="btn btn-success">Add as a player</button>
 				</div>
@@ -29,7 +29,7 @@ export function HomeCard(props) {
 }
 HomeCard.propTypes = {
 	name: PropTypes.string,
-	id: PropTypes.string,
+	id: PropTypes.number,
 	image: PropTypes.string,
 	genre: PropTypes.string,
 	released: PropTypes.string

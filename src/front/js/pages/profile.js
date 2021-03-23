@@ -2,6 +2,9 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import "../../styles/profile.scss";
+import { Following } from "./following.jsx";
+import { Follower } from "./follower.jsx";
+import { ProfileMyGame } from "./profileMyGame.jsx";
 
 export const Profile = () => {
 	return (
@@ -53,76 +56,7 @@ export const Profile = () => {
 
 						<div className="container-fluid d-flex">
 							<div className="profilehalfboxone col d-flex flex-wrap">
-								<div
-									className="card p-2 m-1 mb-3 bg-card text-light profilecardStyleTwo"
-									style={{ maxWidth: "225px" }}>
-									<div className="col no-gutters">
-										<div className="col-md-4">
-											<img
-												src="https://images.unsplash.com/photo-1533146692536-e70f31e14b36?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80"
-												className="card-img roundBorderCircle"
-												alt="..."
-											/>
-										</div>
-
-										<div className="col-md-8 mt-3">
-											<div className="card-body d-flex flex-column p-0 h-100 m-auto">
-												<h5 className="card-title ml-3 cardNameFriends">Barbara Zamora</h5>
-												<div className="d-flex mt-auto d-flex justify-content-end ml-3">
-													<button className="btn btn-danger">
-														<i className="fas fa-user-times" />
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div
-									className="card p-2 m-1 mb-3 bg-card text-light profilecardStyleTwo"
-									style={{ maxWidth: "225px" }}>
-									<div className="row no-gutters">
-										<div className="col-md-4">
-											<img
-												src="https://images.unsplash.com/photo-1543486958-d783bfbf7f8e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-												className="card-img roundBorderCircle"
-												alt="..."
-											/>
-										</div>
-										<div className="col-md-8 mt-3">
-											<div className="card-body d-flex flex-column p-0 h-100 m-auto">
-												<h5 className="card-title ml-3 cardNameFriends">Andres Gutierrez</h5>
-												<div className="d-flex mt-auto d-flex justify-content-end ml-3">
-													<button className="btn btn-danger">
-														<i className="fas fa-user-times" />
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div
-									className="card p-2 m-1 mb-3 bg-card text-light profilecardStyleTwo"
-									style={{ maxWidth: "225px" }}>
-									<div className="row no-gutters">
-										<div className="col-md-4">
-											<img
-												src="https://images.unsplash.com/photo-1567250671670-05e36d8ca38e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-												className="card-img roundBorderCircle"
-												alt="..."
-											/>
-										</div>
-										<div className="col-md-8 mt-3">
-											<div className="card-body d-flex flex-column p-0 h-100 m-auto">
-												<h5 className="card-title ml-3 cardNameFriends">Paula Zumbado</h5>
-												<div className="d-flex mt-auto d-flex justify-content-end ml-3">
-													<button className="btn btn-danger">
-														<i className="fas fa-user-times" />
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								<Following nameprofile={item.xxxx} imgprofile={item.xxxx} key={item.id} id={item.id} />
 							</div>
 						</div>
 					</div>
@@ -132,76 +66,7 @@ export const Profile = () => {
 
 						<div className="container-fluid d-flex">
 							<div className="profilehalfboxone col d-flex flex-wrap">
-								<div
-									className="card p-2 m-1 mb-3 bg-card text-light profilecardStyleTwo"
-									style={{ maxWidth: "225px" }}>
-									<div className="col no-gutters">
-										<div className="col-md-4">
-											<img
-												src="https://images.unsplash.com/photo-1533146692536-e70f31e14b36?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80"
-												className="card-img roundBorderCircle"
-												alt="..."
-											/>
-										</div>
-
-										<div className="col-md-8 mt-3">
-											<div className="card-body d-flex flex-column p-0 h-100 m-auto">
-												<h5 className="card-title ml-3 cardNameFriends">Barbara Zamora</h5>
-												<div className="d-flex mt-auto d-flex justify-content-end ml-3">
-													<button className="btn btn-danger">
-														<i className="fas fa-user-times" />
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div
-									className="card p-2 m-1 mb-3 bg-card text-light profilecardStyleTwo"
-									style={{ maxWidth: "225px" }}>
-									<div className="row no-gutters">
-										<div className="col-md-4">
-											<img
-												src="https://images.unsplash.com/photo-1543486958-d783bfbf7f8e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-												className="card-img roundBorderCircle"
-												alt="..."
-											/>
-										</div>
-										<div className="col-md-8 mt-3">
-											<div className="card-body d-flex flex-column p-0 h-100 m-auto">
-												<h5 className="card-title ml-3 cardNameFriends">Andres Gutierrez</h5>
-												<div className="d-flex mt-auto d-flex justify-content-end ml-3">
-													<button className="btn btn-danger">
-														<i className="fas fa-user-times" />
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div
-									className="card p-2 m-1 mb-3 bg-card text-light profilecardStyleTwo"
-									style={{ maxWidth: "225px" }}>
-									<div className="row no-gutters">
-										<div className="col-md-4">
-											<img
-												src="https://images.unsplash.com/photo-1567250671670-05e36d8ca38e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-												className="card-img roundBorderCircle"
-												alt="..."
-											/>
-										</div>
-										<div className="col-md-8 mt-3">
-											<div className="card-body d-flex flex-column p-0 h-100 m-auto">
-												<h5 className="card-title ml-3 cardNameFriends">Paula Zumbado</h5>
-												<div className="d-flex mt-auto d-flex justify-content-end ml-3">
-													<button className="btn btn-danger">
-														<i className="fas fa-user-times" />
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								<Follower nameprofile={item.xxxx} imgprofile={item.xxxx} key={item.id} id={item.id} />
 							</div>
 						</div>
 					</div>
@@ -211,81 +76,14 @@ export const Profile = () => {
 
 						<div className="container-fluid d-flex">
 							<div className="profilehalfboxtwo col d-flex  flex-wrap">
-								<div
-									className="card p-3 m-1 mb-3 bg-card text-light profilecardStyleOne"
-									style={{ maxWidth: "540px" }}>
-									<div className="row no-gutters">
-										<div className="col-md-6">
-											<img
-												src="https://media.rawg.io/media/crop/600/400/games/26d/26d4437715bee60138dab4a7c8c59c92.jpg"
-												className="card-img profileroundborder"
-												alt="..."
-											/>
-										</div>
-										<div className="col-md-6 mt-3">
-											<div className="card-body d-flex flex-column p-0 h-100 m-auto">
-												<span className="badge bg-info mb-2 w-25 ml-3">Shooter</span>
-												<h5 className="card-title ml-3 profilecardName">Call of Duty</h5>
-												<p className="card-text ml-3">Release Date</p>
-												<div className="d-flex mt-auto d-flex justify-content-end ml-3">
-													<button className="btn btn-danger">
-														<i className="fas fa-trash-alt" />
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div
-									className="card p-3 m-1 mb-3 bg-card text-light profilecardStyleOne"
-									style={{ maxWidth: "540px" }}>
-									<div className="row no-gutters">
-										<div className="col-md-6">
-											<img
-												src="https://media.rawg.io/media/crop/600/400/games/5eb/5eb49eb2fa0738fdb5bacea557b1bc57.jpg"
-												className="card-img profileroundborder"
-												alt="..."
-											/>
-										</div>
-										<div className="col-md-6 mt-3">
-											<div className="card-body d-flex flex-column p-0 h-100 m-auto">
-												<span className="badge bg-info mb-2 w-25 ml-3">Shooter</span>
-												<h5 className="card-title ml-3 profilecardName">Call of Duty</h5>
-												<p className="card-text ml-3">Release Date</p>
-												<div className="d-flex mt-auto d-flex justify-content-end ml-3">
-													<button className="btn btn-danger">
-														<i className="fas fa-trash-alt" />
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div
-									className="card p-3 m-1 mb-3 bg-card text-light profilecardStyleOne"
-									style={{ maxWidth: "540px" }}>
-									<div className="row no-gutters">
-										<div className="col-md-6">
-											<img
-												src="https://media.rawg.io/media/crop/600/400/games/3ea/3ea3c9bbd940b6cb7f2139e42d3d443f.jpg"
-												className="card-img profileroundborder"
-												alt="..."
-											/>
-										</div>
-										<div className="col-md-6 mt-3">
-											<div className="card-body d-flex flex-column p-0 h-100 m-auto">
-												<span className="badge bg-info mb-2 w-25 ml-3">Shooter</span>
-												<h5 className="card-title ml-3 profilecardName">Call of Duty</h5>
-												<p className="card-text ml-3">Release Date</p>
-												<div className="d-flex mt-auto d-flex justify-content-end ml-3">
-													<button className="btn btn-danger">
-														<i className="fas fa-trash-alt" />
-													</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								<ProfileMyGame
+									name={item.name}
+									image={item.background_image}
+									released={item.released}
+									genre={item.genres[0].name}
+									key={item.id}
+									id={item.id}
+								/>
 							</div>
 						</div>
 					</div>
