@@ -30,6 +30,13 @@ export const Navbar = () => {
 						</Link>
 					</li>
 					<li className="nav-item">
+						<Link to="/profile">
+							<a className="nav-link">
+								Profile <span className="sr-only">(current)</span>
+							</a>
+						</Link>
+					</li>
+					<li className="nav-item">
 						<Link to="/login">
 							<a className="nav-link">
 								Log In <span className="sr-only">(current)</span>
@@ -50,10 +57,10 @@ export const Navbar = () => {
 							</a>
 						</Link>
 					</li>
-					<li className="nav-item">
-						<Link to=" ">
+					<li className="nav-item d-flex justify-content-end">
+						<Link to="/">
 							<a className="nav-link">
-								Site Map <span className="sr-only">(current)</span>
+								Log Out <span className="sr-only">(current)</span>
 							</a>
 						</Link>
 					</li>

@@ -46,9 +46,7 @@ export const Home = () => {
 					</div>
 
 					<div className="halfBoxCarouselTwo d-flex align-content-around flex-wrap">
-						<div
-							className="card p-3 bg-card text-light bshadowhome cardstylehome"
-							style={{ maxWidth: 540 }}>
+						<div className="p-3 bg-card text-light bshadowhome cardstylehome" style={{ maxWidth: 540 }}>
 							<div className="row no-gutters">
 								<div className="col-md-6">
 									<img
@@ -72,9 +70,7 @@ export const Home = () => {
 								</div>
 							</div>
 						</div>
-						<div
-							className="card p-3 bg-card text-light bshadowhome cardstylehome"
-							style={{ maxWidth: 540 }}>
+						<div className="p-3 bg-card text-light bshadowhome cardstylehome" style={{ maxWidth: 540 }}>
 							<div className="row no-gutters">
 								<div className="col-md-6">
 									<img
@@ -98,9 +94,7 @@ export const Home = () => {
 								</div>
 							</div>
 						</div>
-						<div
-							className="card p-3 bg-card text-light bshadowhome cardstylehome"
-							style={{ maxWidth: 540 }}>
+						<div className="p-3 bg-card text-light bshadowhome cardstylehome" style={{ maxWidth: 540 }}>
 							<div className="row no-gutters">
 								<div className="col-md-6">
 									<img
