@@ -34,8 +34,7 @@ def signUpUser():
     db.session.commit()
 
     return jsonify({
-        "message": "Successful operation",
-        "user_data": UserSchema().dump(user)
+        "message": "Successful operation"
     }), 201
 
 
@@ -60,7 +59,8 @@ def logInUser():
     access_token = create_access_token(identity=user, expires_delta=expiration)
 
     return jsonify({
-        "access_token": access_token
+        "access_token": access_token,
+        "user_data": UserSchema().dump(user)
     }), 200
 
 
