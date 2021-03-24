@@ -34,7 +34,8 @@ def signUpUser():
     db.session.commit()
 
     return jsonify({
-        "message": "Successful operation"
+        "message": "Successful operation",
+        "user_data": UserSchema().dump(user)
     }), 201
 
 
