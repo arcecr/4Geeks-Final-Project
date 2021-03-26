@@ -40,8 +40,8 @@ const ChangePassword = () => {
 	};
 
 	return (
-		<div className="change_password_bg h-100">
-			<Container className="h-100 d-flex justify-content-center align-items-center">
+		<div className="change_password_bg">
+			<Container className="min-vh-100 d-flex justify-content-center align-items-center">
 				<Row className="w-100 d-flex justify-content-center align-items-center">
 					<Col md={5} className="p-4 change_password_box rounded">
 						{isLoading ? (
@@ -58,13 +58,19 @@ const ChangePassword = () => {
 								) : (
 									<>
 										{isPasswordChanged ? (
-											<Alert variant="success">
-												<Alert.Heading>Password changed successful</Alert.Heading>
-												<p>
-													Your password has been successfully changed. You can now login with
-													the new password.
-												</p>
-											</Alert>
+											<>
+												<Alert variant="success">
+													<Alert.Heading>Password changed successful</Alert.Heading>
+													<p>
+														Your password has been successfully changed. You can now login
+														with the new password.
+													</p>
+												</Alert>
+
+												<Button variant="link" onClick={() => history.push("/login")} block>
+													Back to Sign In
+												</Button>
+											</>
 										) : (
 											<>
 												<h3>Change password</h3>
@@ -119,9 +125,6 @@ const ChangePassword = () => {
 								)}
 							</>
 						)}
-						<Button variant="link" onClick={() => history.push("/login")} block>
-							Back to Sign In
-						</Button>
 					</Col>
 				</Row>
 			</Container>

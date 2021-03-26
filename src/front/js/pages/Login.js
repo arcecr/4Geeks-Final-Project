@@ -20,26 +20,28 @@ const Login = () => {
 		setIsLoading(true);
 
 		actions
-			.logIn(data)
+			.login(data)
 			.then(response => response.json().then(data => ({ status: response.status, body: data })))
 			.then(result => {
 				if (result.status === 401) {
 					setError(result.body.message);
 				}
 
+				setIsLoading(false);
+
 				if (result.status === 200) {
 					actions.setUserToken(result.body.access_token);
+					actions.setUserData(result.body.user_data);
+					actions.setUserGames(result.body.user_data.games);
 					actions.setUserAuth();
 					history.push("/");
 				}
-
-				setIsLoading(false);
 			});
 	};
 
 	return (
-		<div className="login_bg h-100">
-			<Container className="h-100 d-flex justify-content-center align-items-center">
+		<div className="login_bg">
+			<Container className="min-vh-100 d-flex justify-content-center align-items-center">
 				<Row className="w-100 d-flex justify-content-center align-items-center">
 					<Col md={5} className="p-4 login_box rounded">
 						<Alert variant="danger" show={error ? true : false}>

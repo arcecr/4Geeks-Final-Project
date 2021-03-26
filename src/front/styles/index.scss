@@ -2,11 +2,16 @@
     General Styles
 */
 
-.login_box, .register_box, .forgot_password_box, .change_password_box {
+html, body {
+    height: 100vh;
+}
+
+.login_box, .register_box, .forgot_password_box, .change_password_box, .not_found_box {
     background-color: white;
 }
 
-.login_bg, .register_bg, .forgot_password_bg, .change_password_bg {
+.login_bg, .register_bg, .forgot_password_bg, .change_password_bg, .games_bg, .not_found_bg, .profile_loading_bg {
+    min-height: 100vh;
     background-image: url("https://ui8-unity-gaming.herokuapp.com/img/bg-sign-in.png");
     background-size: cover;
     background-attachment: fixed;

@@ -3,44 +3,38 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
-import { Single } from "./pages/single";
 import { About } from "./pages/about";
 import injectContext from "./store/appContext";
 
 import { GameInfo } from "./pages/gameinfo";
-import { Profile } from "./pages/profile";
 
-import { Navbar } from "./component/navbar";
+import { NavbarMain } from "./component/navbar";
 
+import Games from "./pages/Games";
+import Profile from "./pages/profile";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ForgotPassword from "./pages/ForgotPassword";
 import ChangePassword from "./pages/ChangePassword";
+import NotFound from "./pages/NotFound";
 
 const Layout = () => {
 	const basename = process.env.BASENAME || "";
 
 	return (
-		<div className="d-flex flex-column h-100">
+		<div className="d-flex flex-column">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
-					<Navbar />
+					<NavbarMain />
 					<Switch>
 						<Route exact path="/">
 							<Home />
 						</Route>
-						<Route exact path="/gameinfo/:id">
-							<GameInfo />
-						</Route>
-						<Route exact path="/profile">
-							<Profile />
+						<Route exact path="/login">
+							<Login />
 						</Route>
 						<Route exact path="/register">
 							<Register />
-						</Route>
-						<Route exact path="/login">
-							<Login />
 						</Route>
 						<Route exact path="/forgot_password">
 							<ForgotPassword />
@@ -48,17 +42,23 @@ const Layout = () => {
 						<Route exact path="/change_password/:token">
 							<ChangePassword />
 						</Route>
-						<Route exact path="/demo">
-							<Demo />
+						<Route exact path="/games">
+							<Games />
 						</Route>
-						<Route exact path="/single/:theid">
-							<Single />
+						<Route exact path="/gameinfo/:id">
+							<GameInfo />
+						</Route>
+						<Route exact path="/profile/:username">
+							<Profile />
 						</Route>
 						<Route exact path="/about">
 							<About />
 						</Route>
+						<Route exact path="/404">
+							<NotFound />
+						</Route>
 						<Route>
-							<h1>Not found!</h1>
+							<NotFound />
 						</Route>
 					</Switch>
 				</ScrollToTop>

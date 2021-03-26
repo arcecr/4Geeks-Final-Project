@@ -21,25 +21,27 @@ export const Home = () => {
 							</div>
 							<p className="lead">Live your Passion.</p>
 						</div>
-
-						<div className="jumboBottom">
-							<p>Add Fun to your Life</p>
-							<div className="row">
-								<Link to="/login" style={{ color: "inherit", textDecoration: "inherit" }}>
-									<a className="btn btn-primary btn-lg m-2" href="#" role="button">
-										Log In
-									</a>
-								</Link>
-								<Link to="/register" style={{ color: "inherit", textDecoration: "inherit" }}>
-									<a className="btn btn-success btn-lg m-2" href="#" role="button">
-										Sign Up
-									</a>
-								</Link>
+						{!actions.isUserAuth() && (
+							<div className="jumboBottom">
+								<p>Add Fun to your Life</p>
+								<div className="row">
+									<Link to="/login" style={{ color: "inherit", textDecoration: "inherit" }}>
+										<a className="btn btn-primary btn-lg m-2" href="#" role="button">
+											Log In
+										</a>
+									</Link>
+									<Link to="/register" style={{ color: "inherit", textDecoration: "inherit" }}>
+										<a className="btn btn-success btn-lg m-2" href="#" role="button">
+											Sign Up
+										</a>
+									</Link>
+								</div>
 							</div>
-						</div>
+						)}
 					</div>
 				</div>
 
+				{/*
 				<div className="container-fluid row boxCarousel d-flex align-content-around justify-content-around flex-wrap">
 					<div className="halfBoxCarousel">
 						<HomeCarousel />
@@ -119,7 +121,7 @@ export const Home = () => {
 							</div>
 						</div>
 					</div>
-				</div>
+				</div>*/}
 
 				<div className="container-fluid pt-5 homecardsbox">
 					<div>
@@ -130,6 +132,11 @@ export const Home = () => {
 						{store.games.map(item => {
 							return (
 								<HomeCard
+									inMyList={
+										actions.getUserGames()
+											? actions.getUserGames().some(game => item.id === game.game_id)
+											: false
+									}
 									name={item.name}
 									image={item.background_image}
 									released={item.released}

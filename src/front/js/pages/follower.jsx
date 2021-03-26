@@ -1,4 +1,5 @@
-import React, { useState, useContext, useEffect } from "react";
+
+/*import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext.js";
@@ -24,3 +25,4 @@ Follower.propTypes = {
 	imgprofile: PropTypes.string,
 	nameprofile: PropTypes.string
 };
+*/

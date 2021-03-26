@@ -62,12 +62,12 @@ const Register = () => {
 	};
 
 	return (
-		<div className={`register_bg ${isAccountCreated && "h-100"}`}>
+		<div className="register_bg">
 			<Container
-				className="h-100 d-flex justify-content-center align-items-center"
-				style={{ paddingTop: 125, paddingBottom: 65 }}>
+				className="min-vh-100 d-flex justify-content-center align-items-center"
+				style={!isAccountCreated ? { paddingTop: 125, paddingBottom: 61 } : null}>
 				<Row className="w-100 d-flex justify-content-center align-items-center">
-					<Col md={5} className="p-4 register_box rounded h-100">
+					<Col md={5} className="p-4 register_box rounded">
 						{isAccountCreated ? (
 							<Alert variant="success" className="mb-0">
 								<Alert.Heading>Your account has been successfully created</Alert.Heading>
@@ -177,7 +177,6 @@ const Register = () => {
 												})}
 												isInvalid={!!errors.password}
 												required
-												block
 											/>
 											<Form.Control.Feedback type="invalid">
 												{errors.password && errors.password.message}
