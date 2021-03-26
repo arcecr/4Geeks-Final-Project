@@ -143,6 +143,17 @@ def userGames():
 
         return jsonify(), 204
 
+@api.route('/game/<id>/users', methods=['GET'])
+def usersByGame(id):
+    users = []
+
+    if (id):
+        userSchema = UserGameSchema(many=True, only=['user'])
+        userGameQuery = UserGame.query.filter_by(game_id=id).all()
+        users = userSchema.dump(userGameQuery)
+
+    return jsonify({ "users": users }), 200
+
 
 @api.route('/user/profile', defaults={'username': None})
 @api.route('/user/profile/<username>')

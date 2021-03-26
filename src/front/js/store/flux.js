@@ -160,6 +160,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => getActions().setUserGames(data));
 			},
 
+			fetchUsersByGameId: id =>
+				fetch("https://3001-indigo-cicada-mfqsyavm.ws-us03.gitpod.io/api/game/" + id + "/users").then(
+					response => response.json()
+				),
+
 			/////////////////////////////////////////////////////////////////
 
 			followUser: (id, username) =>
