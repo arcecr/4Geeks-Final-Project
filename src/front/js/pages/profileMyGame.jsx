@@ -1,7 +1,7 @@
-import React, { useState, useContext, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { Link, useParams } from "react-router-dom";
-import { Context } from "../store/appContext.js";
+import { Link } from "react-router-dom";
+
 import "../../styles/profile.scss";
 
 export const ProfileMyGame = props => {
@@ -29,6 +29,7 @@ export const ProfileMyGame = props => {
 		</div>
 	);
 };
+
 ProfileMyGame.propTypes = {
 	name: PropTypes.string,
 	id: PropTypes.number,

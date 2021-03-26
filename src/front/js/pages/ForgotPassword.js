@@ -18,9 +18,11 @@ const ForgotPassword = () => {
 		message: ""
 	};
 
+	const [isLoading, setIsLoading] = useState(false);
 	const [result, setResult] = useState(initialStateResult);
 
 	const onSubmit = data => {
+		setIsLoading(true);
 		setResult(initialStateResult);
 
 		actions
@@ -34,12 +36,14 @@ const ForgotPassword = () => {
 					status: "success",
 					message: result.body.message
 				});
+
+				setIsLoading(false);
 			});
 	};
 
 	return (
-		<div className="forgot_password_bg h-100">
-			<Container className="h-100 d-flex justify-content-center align-items-center">
+		<div className="forgot_password_bg">
+			<Container className="min-vh-100 d-flex justify-content-center align-items-center">
 				<Row className="w-100 d-flex justify-content-center align-items-center">
 					<Col md={5} className="p-4 forgot_password_box rounded">
 						<Alert variant={result.status} show={result.show}>
@@ -70,7 +74,7 @@ const ForgotPassword = () => {
 								</Form.Control.Feedback>
 							</Form.Group>
 							<Button variant="success" type="submit" onClick={handleSubmit(onSubmit)} block>
-								Send
+								{isLoading ? <i className="fas fa-spinner-third fa-spin" /> : "Send"}
 							</Button>
 							<Button variant="link" onClick={() => history.push("/login")} block>
 								Back to Sign In

@@ -2,76 +2,48 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			apiURL: process.env.BACKEND_URL,
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			],
+
 			isUserAuth: false,
-			games: [],
-			cardsinfo: []
+			userData: [],
+			userGames: [],
+
+			games: []
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
+			/////////////////////////////////////////////////////////////////
+
 			loadGames: () => {
 				fetch("https://api.rawg.io/api/games")
-					.then(data => data.json())
-					.then(data => {
-						let allGames = data.results;
-						setStore({ games: allGames });
-					});
-			},
-			loadGameById: id => {
-				const response = fetch("https://api.rawg.io/api/games/" + id);
-				return response;
+					.then(response => response.json())
+					.then(data => setStore({ games: data.results }));
 			},
 
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
+			loadGameById: id => fetch("https://api.rawg.io/api/games/" + id).then(response => response.json()),
 
-			getMessage: () => {
-				// fetching data from the backend
-				fetch(process.env.BACKEND_URL + "/api/hello")
-					.then(resp => resp.json())
-					.then(data => setStore({ message: data.message }))
-					.catch(error => console.log("Error loading message from backend", error));
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+			/////////////////////////////////////////////////////////////////
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
-			},
-			register: data => {
-				const response = fetch(getStore().apiURL + "/users/register", {
+			register: data =>
+				fetch(getStore().apiURL + "/users/register", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
 					},
 					body: JSON.stringify(data)
-				});
+				}),
 
-				return response;
-			},
-			forgotPassword: email => {
-				const response = fetch(getStore().apiURL + "/users/forgot_password", {
+			login: data =>
+				fetch(getStore().apiURL + "/users/login", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json"
+					},
+					body: JSON.stringify(data)
+				}),
+
+			/////////////////////////////////////////////////////////////////
+
+			forgotPassword: email =>
+				fetch(getStore().apiURL + "/users/forgot_password", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json"
@@ -79,10 +51,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 					body: JSON.stringify({
 						email: email
 					})
-				});
+				}),
 
-				return response;
-			},
 			changePassword: (token, data) => {
 				token = token.replaceAll("$", ".");
 
@@ -97,39 +67,186 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				return response;
 			},
+
 			checkToken: token => {
-				token = token ? token.replaceAll("$", ".") : sessionStorage.getItem("userToken");
+				token = token.replaceAll("$", ".");
 
 				const response = fetch(getStore().apiURL + "/user/check", {
 					method: "GET",
 					headers: {
-						Accept: "application/json",
 						"Content-Type": "application/json",
-						Authorization: "Bearer " + token
+						Authorization: `Bearer ${token}`
 					}
 				});
 
 				return response;
 			},
 
-			logIn: data => {
-				const response = fetch("https://begamer-dev.herokuapp.com/api/users/login", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json"
-					},
-					body: JSON.stringify(data)
-				});
+			/////////////////////////////////////////////////////////////////
 
-				return response;
-			},
+			isUserAuth: () => getStore().isUserAuth,
+			setUserAuth: () => setStore({ isUserAuth: true }),
+			unsetUserAuth: () => setStore({ isUserAuth: false }),
 
 			getUserToken: () => sessionStorage.getItem("userToken"),
 			setUserToken: token => sessionStorage.setItem("userToken", token),
 			removeUserToken: () => sessionStorage.removeItem("userToken"),
 
-			setUserAuth: () => setStore({ isUserAuth: true }),
-			unsetUserAuth: () => setStore({ isUserAuth: false })
+			getUserData: () => getStore().userData,
+			setUserData: data => setStore({ userData: data }),
+			unsetUserData: () => setStore({ userData: null }),
+
+			getUserGames: () => getStore().userGames,
+			setUserGames: data => setStore({ userGames: data }),
+			unsetUserGames: () => setStore({ userGames: null }),
+
+			/////////////////////////////////////////////////////////////////
+
+			getAuthHeaders: () => {
+				let headers = {
+					"Content-Type": "application/json"
+				};
+
+				if (getActions().getUserToken()) {
+					headers.Authorization = `Bearer ${getActions().getUserToken()}`;
+				}
+
+				return headers;
+			},
+
+			/////////////////////////////////////////////////////////////////
+
+			fetchUserProfile: async (username = "") =>
+				fetch(getStore().apiURL + "/user/profile/" + username, { headers: getActions().getAuthHeaders() }).then(
+					response => response.json()
+				),
+
+			fetchUserGames: (username = "") =>
+				getActions()
+					.fetchUserProfile(username)
+					.then(data => {
+						let promises = [];
+						let responsePromise;
+
+						if (data.games) {
+							data.games.map(game => {
+								responsePromise = fetch(`https://api.rawg.io/api/games/${game.game_id}`).then(
+									response => response.json()
+								);
+
+								promises.push(responsePromise);
+							});
+
+							let responses = Promise.all(promises);
+							return responses;
+						}
+					}),
+
+			getUserProfile: username =>
+				Promise.all([getActions().fetchUserProfile(username), getActions().fetchUserGames(username)]).then(
+					([user, games]) => {
+						return { user, games };
+					}
+				),
+
+			/////////////////////////////////////////////////////////////////
+
+			fetchAndSetUserGames: () => {
+				fetch(getStore().apiURL + "/user/games/", {
+					method: "GET",
+					headers: getActions().getAuthHeaders()
+				})
+					.then(response => response.json())
+					.then(data => getActions().setUserGames(data));
+			},
+
+			/////////////////////////////////////////////////////////////////
+
+			followUser: (id, username) =>
+				fetch(getStore().apiURL + `/users/follow/`, {
+					method: "POST",
+					headers: getActions().getAuthHeaders(),
+					body: JSON.stringify({
+						user_id: id,
+						username: username
+					})
+				})
+					.then(response => {
+						if (response.status === 401) {
+							getActions().logout();
+							window.location = "/login";
+						}
+
+						return response.json();
+					})
+					.then(data => data),
+
+			unFollowUser: (id, username) =>
+				fetch(getStore().apiURL + `/users/follow/`, {
+					method: "DELETE",
+					headers: getActions().getAuthHeaders(),
+					body: JSON.stringify({
+						user_id: id,
+						username: username
+					})
+				})
+					.then(response => {
+						if (response.status === 401) {
+							getActions().logout();
+							window.location = "/login";
+						}
+					})
+					.then(data => data),
+
+			/////////////////////////////////////////////////////////////////
+
+			addUserGame: id => {
+				fetch(getStore().apiURL + "/user/games", {
+					method: "POST",
+					headers: getActions().getAuthHeaders(),
+					body: JSON.stringify({
+						game_id: id
+					})
+				}).then(response => response.status === 201 && getActions().fetchAndSetUserGames());
+			},
+
+			deleteUserGame: id => {
+				fetch(getStore().apiURL + "/user/games", {
+					method: "DELETE",
+					headers: getActions().getAuthHeaders(),
+					body: JSON.stringify({
+						game_id: id
+					})
+				}).then(response => response.status === 204 && getActions().fetchAndSetUserGames());
+			},
+
+			/////////////////////////////////////////////////////////////////
+
+			logout: () => {
+				getActions().removeUserToken();
+				getActions().unsetUserData();
+				getActions().unsetUserGames();
+				getActions().unsetUserAuth();
+			},
+
+			checkUserAuth: () => {
+				if (getActions().getUserToken()) {
+					getActions()
+						.fetchUserProfile()
+						.then(data => {
+							getActions().setUserData(data);
+							getActions().fetchAndSetUserGames();
+							getActions().setUserAuth();
+						})
+						.catch(() => {
+							getActions().logout();
+						});
+				} else {
+					getActions().logout();
+				}
+			}
+
+			/////////////////////////////////////////////////////////////////
 		}
 	};
 };

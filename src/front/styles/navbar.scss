@@ -1,9 +1,7 @@
-.navbar-brand {
-  display: inline-flex;
-  font-size: 1.5em;
-  margin-top: 0.4%;
-  margin-bottom: 0%;
+.navbar_avatar > .dropdown-toggle::after {
+    display: none;
 }
+
 .neon {
   animation: glow 1s ease-in-out infinite alternate;
 }
