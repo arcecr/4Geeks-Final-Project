@@ -161,7 +161,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			fetchUsersByGameId: id =>
-				fetch("https://3001-indigo-cicada-mfqsyavm.ws-us03.gitpod.io/api/game/" + id + "/users").then(
+				fetch(getStore().apiURL + "/game/" + id + "/users").then(
 					response => response.json()
 				),
 
