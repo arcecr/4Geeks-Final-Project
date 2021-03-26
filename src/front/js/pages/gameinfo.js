@@ -11,7 +11,7 @@ export function GameInfo() {
 	const { id } = useParams();
 
 	const [gameInfo, setGameInfo] = useState();
-
+	const [playersGame, setPlayersGame] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 
 	useEffect(
@@ -20,7 +20,10 @@ export function GameInfo() {
 
 			actions.loadGameById(parseInt(id)).then(data => {
 				setGameInfo(data);
-				setIsLoading(false);
+				actions.fetchUsersByGameId(id).then(data => {
+					setPlayersGame(data.users);
+					setIsLoading(false);
+				});
 			});
 		},
 		[id]
@@ -58,6 +61,14 @@ export function GameInfo() {
 						<h5 className="titleh5info">
 							Release Date: <p className="ptextinfo">{gameInfo.released}</p>
 						</h5>
+						<h5 className="titleh5info">Players:</h5>
+						{playersGame.length
+							? playersGame.map((data, id) => (
+									<Link key={id} to={`/profile/${data.user.username}`}>
+										{data.user.username}
+									</Link>
+							  ))
+							: ""}
 					</div>
 				</div>
 			</div>

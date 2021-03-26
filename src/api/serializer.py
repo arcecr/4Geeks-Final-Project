@@ -13,7 +13,9 @@ def configure(app):
 class UserGameSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = UserGame
-
+        include_fk = True
+    
+    user = fields.Nested("UserSchema", only=['id', 'username'])
 
 class UserSchema(ma.SQLAlchemyAutoSchema):
     gender = EnumField(Gender, by_value=True, required=True)
