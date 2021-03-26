@@ -67,7 +67,7 @@ const Profile = () => {
 		<Loading />
 	) : !!userGames ? (
 		<div className="profilebodyccontainer">
-			<div className="profilebody">
+			<div className="profilebody min-vh-100">
 				<div className="container-fluid row profilepaddingcontainer">
 					<div className="container-fluid row profileInfo m-0 mb-5 p-4 pb-5 border-bottom border-secondary">
 						<div className="profileImag row d-flex justify-content-center border-right border-secondary">
